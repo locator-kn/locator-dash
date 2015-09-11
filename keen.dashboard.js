@@ -1,6 +1,6 @@
 var client = new Keen({
-    projectId: "55f2970796773d1d0bfcb903",
-    readKey: "af7404e2dad8247cbaf0c0be8e97dea29330723633baf27ee11b09c1b4152a9653d47a95f2662a8b973cb53c5ca263b0a2a6d88501ac83fa25d4473a9b3f2b31dd758fec4241a5f381824bb3a473307b0b9bdf239517d842bf61bcd3c19d4aca7e6783ab3e2ed043eefd0613fb4a5d37"
+    projectId: "<%= keen.PROJECT_ID %>",
+    readKey: "<%= keen.READ_KEY %>"
 });
 
 Keen.ready(function () {
