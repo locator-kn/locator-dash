@@ -88,7 +88,7 @@ Keen.ready(function () {
     var visitors = new Keen.Query("count", {
         eventCollection: "visit",
         interval: "daily",
-
+        filters: getFilter(),
         groupBy: "visitor.authenticated",
         timeframe: "this_14_days"
     });
@@ -100,7 +100,7 @@ Keen.ready(function () {
     var visitors_pie = new Keen.Query("count", {
         eventCollection: "visit",
         groupBy: "visitor.authenticated",
-
+        filters: getFilter(),
         timeframe: "this_14_days",
         timezone: "UTC"
     });
@@ -124,6 +124,7 @@ Keen.ready(function () {
     // ----------------------------------------
     var page_view_static = new Keen.Query("count", {
         eventCollection: "page_view",
+        filters: getFilter(),
         groupBy: "page_type",
         timeframe: "this_14_days"
     });
@@ -148,6 +149,7 @@ Keen.ready(function () {
     // ----------------------------------------
     var page_view_static = new Keen.Query("count", {
         eventCollection: "visit",
+        filters: getFilter(),
         groupBy: "ip_geo_info.city",
         timeframe: "this_14_days"
     });
@@ -174,6 +176,7 @@ Keen.ready(function () {
     var page_view_static = new Keen.Query("count", {
         eventCollection: "schoen_hier",
         groupBy: "action",
+        filters: getFilter(),
         timeframe: "this_14_days"
     });
     client.draw(page_view_static, document.getElementById("chart-schoenhier-pie"), pieChartConfig);
