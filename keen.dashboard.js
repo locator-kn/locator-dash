@@ -88,6 +88,7 @@ Keen.ready(function () {
     var visitors = new Keen.Query("count", {
         eventCollection: "visit",
         interval: "daily",
+
         groupBy: "visitor.authenticated",
         timeframe: "this_14_days"
     });
@@ -112,6 +113,7 @@ Keen.ready(function () {
         eventCollection: "page_view",
         filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
         groupBy: "page_type",
+        interval: 'daily',
         timeframe: "this_14_days"
     });
     client.draw(page_view_timeline, document.getElementById("chart-01"), areaChartConfig);
