@@ -12,6 +12,6 @@ gulp.task('default', function () {
     var parsedData = JSON.parse(data);
     return gulp.src('./keen.dashboard.js')
         .pipe(template(parsedData))
-        .pipe(gulp.dest('./out.js'));
+        .pipe(gulp.dest('./out'));
 
 });
