@@ -1,0 +1,11 @@
+{
+  "name": "locator-dash",
+  "version": "1.0.0",
+  "description": "dashboard",
+  "main": "keen.dashboard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
