@@ -41,6 +41,9 @@ Keen.ready(function () {
     }
 
     function getFilter(newData) {
+        if(!newData) {
+            return userFilter;
+        }
         var tmp = userFilter.slice(0);
         tmp.push(newData);
         return tmp;
