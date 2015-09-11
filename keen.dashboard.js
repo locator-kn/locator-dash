@@ -51,7 +51,8 @@ Keen.ready(function () {
 
     var visitorsmetric1 = new Keen.Query("count", {
         eventCollection: "visit",
-        timeframe: "this_7_days"
+        timeframe: "this_7_days",
+        filters: getFilter()
     });
     client.draw(visitorsmetric1, document.getElementById("count-metric-1"), {
         chartType: "metric",
