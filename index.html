@@ -5,13 +5,13 @@
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/keen-dashboards.css"/>
     <style>
-        #map-canvas {
+        #map-canvas, #map-canvas-6 {
             margin: 0px;
             min-height: 500px;
             padding: 0px;
             width: 100%;
         }
-        #map-canvas .info-window {
+        #map-canvas .info-window, #map-canvas-6 .info-window {
             max-width: 200px;
         }
     </style>
@@ -204,13 +204,27 @@
 
     <div class="row">
 
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <div class="chart-wrapper">
                 <div class="chart-title">
                     Standorte der neusten 200 Locations
                 </div>
                 <div class="chart-stage">
                     <div id="map-canvas"></div>
+                </div>
+                <div class="chart-notes">
+                    This is a sample text region to describe this chart.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    Standorte der Locations der vergangenen 7 Tage
+                </div>
+                <div class="chart-stage">
+                    <div id="map-canvas-6"></div>
                 </div>
                 <div class="chart-notes">
                     This is a sample text region to describe this chart.

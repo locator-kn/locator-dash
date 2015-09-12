@@ -97,6 +97,14 @@ google.maps.event.addDomListener(window, 'load', function () {
             zoom: 2
         });
 
+        var bounds6 = new google.maps.LatLngBounds ();
+        var map6 = new google.maps.Map(document.getElementById('map-canvas-6'), {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 2
+        });
+
+
+
         $.ajax({
             url: 'https://locator-app.com/api/v1/locations/latest?page=0&elements=200',
             method: 'GET',
@@ -120,9 +128,28 @@ google.maps.event.addDomListener(window, 'load', function () {
 
                             });
                             bounds.extend(latlng);
+
+                            if(new Date(response[i].create_date) - (Date.now() - 604800000) > 0) {
+                                var latlng6 = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
+                                var marker6 = new google.maps.Marker({
+                                    position: latlng6,
+                                    map: map6,
+                                    animation: google.maps.Animation.DROP,
+                                    title: response[i].title
+                                });
+                                var infoWindow6 =  new google.maps.InfoWindow({
+                                    content: '<div class="info-window"><a target="_blank" href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
+                                });
+                                marker6.addListener('click', function() {
+                                    infoWindow6.open(map6, marker6);
+
+                                });
+                                bounds6.extend(latlng6);
+                            }
                         }
                     })();
                     map.fitBounds(bounds);
+                    map6.fitBounds(bounds6);
                 }
 
             }
