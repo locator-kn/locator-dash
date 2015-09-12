@@ -113,7 +113,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                                 title: response[i].title
                             });
                             var infoWindow =  new google.maps.InfoWindow({
-                                content: '<div class="info-window"><a href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
+                                content: '<div class="info-window"><a target="_blank" href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
                             });
                             marker.addListener('click', function() {
                                 infoWindow.open(map, marker);
