@@ -145,14 +145,19 @@ google.maps.event.addDomListener(window, 'load', function () {
             zoom: 2
         });
 
+        var infoWindow =  new google.maps.InfoWindow({
+            content: ''
+        });
+
+
         var allLocationsCount = 0;
         var locationsLastWeekCount = 0;
-        var withoutBlackListedCount = 0;
 
-        var currently_open_marker = {};
+        var withoutBlackListedCount = 0;
+        var clickedIndex = {};
 
         function generateMarker(location, _map, _bounds) {
-
+            location.__infowindowContent = '<div class="info-window"><a target="_blank" href="/location/' + location._id + '"><h3>' + location.title + '</h3></a><p>' + location.description + '</p></div>';
             var _latlng = new google.maps.LatLng(location.geotag.lat, location.geotag.long);
             var _marker = new google.maps.Marker({
                 position: _latlng,
@@ -160,16 +165,10 @@ google.maps.event.addDomListener(window, 'load', function () {
                 animation: google.maps.Animation.DROP,
                 title: location.title
             });
-            var _infoWindow = new google.maps.InfoWindow({
-                content: '<div class="info-window"><a target="_blank" href="/location/' + location._id + '"><h3>' + location.title + '</h3></a><p>' + location.description + '</p></div>'
-            });
             _marker.addListener('click', function () {
-                if(currently_open_marker.hasOwnProperty('visible')) {
-
-                    currently_open_marker.close();
-                }
-                currently_open_marker = _marker;
-                _infoWindow.open(_map, _marker);
+                infoWindow.close();
+                infoWindow.setContent(location.__infowindowContent);
+                infoWindow.open(_map, _marker);
             });
             _bounds.extend(_latlng);
 
