@@ -127,19 +127,19 @@ google.maps.event.addDomListener(window, 'load', function () {
             return tmp;
         }
 
-        var bounds = new google.maps.LatLngBounds ();
+        var bounds = new google.maps.LatLngBounds();
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
             center: new google.maps.LatLng(0, 0),
             zoom: 2
         });
 
-        var bounds6 = new google.maps.LatLngBounds ();
+        var bounds6 = new google.maps.LatLngBounds();
         var map6 = new google.maps.Map(document.getElementById('map-canvas-6'), {
             center: new google.maps.LatLng(0, 0),
             zoom: 2
         });
 
-        var bounds_notUs = new google.maps.LatLngBounds ();
+        var bounds_notUs = new google.maps.LatLngBounds();
         var map_notUs = new google.maps.Map(document.getElementById('map-canvas-notUs'), {
             center: new google.maps.LatLng(0, 0),
             zoom: 2
@@ -149,73 +149,50 @@ google.maps.event.addDomListener(window, 'load', function () {
         var locationsLastWeekCount = 0;
         var withoutBlackListedCount = 0;
 
+        var currently_open_marker = {};
+
+        function generateMarker(location, _map, _counterVar, _bounds) {
+            _counterVar++;
+            var _latlng = new google.maps.LatLng(location.geotag.lat, location.geotag.long);
+            var _marker = new google.maps.Marker({
+                position: _latlng,
+                map: _map,
+                animation: google.maps.Animation.DROP,
+                title: response[i].title
+            });
+            var _infoWindow = new google.maps.InfoWindow({
+                content: '<div class="info-window"><a target="_blank" href="/location/' + location._id + '"><h3>' + location.title + '</h3></a><p>' + location.description + '</p></div>'
+            });
+            _marker.addListener('click', function () {
+                currently_open_marker.close();
+                currently_open_marker = _marker;
+                _infoWindow.open(_map, _marker);
+            });
+            _bounds.extend(latlng);
+        }
+
         $.ajax({
             url: 'https://locator-app.com/api/v1/locations/latest?page=0&elements=1200',
             method: 'GET',
-            success:function(response){
-
-                allLocationsCount = response.length;
+            success: function (response) {
 
                 for (var i = 0; i < response.length; i++) {
-                    (function(){
+                    (function () {
                         if (response[i] !== undefined && response[i] !== null) {
-                            var latlng = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
-                            var marker = new google.maps.Marker({
-                                position: latlng,
-                                map: map,
-                                animation: google.maps.Animation.DROP,
-                                title: response[i].title
-                            });
-                            var infoWindow =  new google.maps.InfoWindow({
-                                content: '<div class="info-window"><a target="_blank" href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
-                            });
-                            marker.addListener('click', function() {
-                                infoWindow.open(map, marker);
+                            generateMarker(response[i], map, allLocationsCount, bounds);
 
-                            });
-                            bounds.extend(latlng);
+                            if (new Date(response[i].create_date) - (Date.now() - 604800000) > 0) {
+                                generateMarker(response[i], map6, locationsLastWeekCount, bounds6);
 
-                            if(new Date(response[i].create_date) - (Date.now() - 604800000) > 0) {
-                                locationsLastWeekCount++;
-                                var latlng6 = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
-                                var marker6 = new google.maps.Marker({
-                                    position: latlng6,
-                                    map: map6,
-                                    animation: google.maps.Animation.DROP,
-                                    title: response[i].title
-                                });
-                                var infoWindow6 =  new google.maps.InfoWindow({
-                                    content: '<div class="info-window"><a target="_blank" href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
-                                });
-                                marker6.addListener('click', function() {
-                                    infoWindow6.open(map6, marker6);
-
-                                });
-                                bounds6.extend(latlng6);
                             }
                             var isInBlacklist = false;
-                            userFilter.forEach(function(filterElem) {
-                                if(filterElem.property_name === 'visitor.user_id' &&  filterElem.property_value === response[i].userid) {
+                            userFilter.forEach(function (filterElem) {
+                                if (filterElem.property_name === 'visitor.user_id' && filterElem.property_value === response[i].userid) {
                                     isInBlacklist = true;
                                 }
-                            })
-                            if(!isInBlacklist) {
-                                withoutBlackListedCount++;
-                                var latlng_notUs = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
-                                var marker_notUs = new google.maps.Marker({
-                                    position: latlng_notUs,
-                                    map: map_notUs,
-                                    animation: google.maps.Animation.DROP,
-                                    title: response[i].title
-                                });
-                                var infoWindow_notUs =  new google.maps.InfoWindow({
-                                    content: '<div class="info-window"><a target="_blank" href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
-                                });
-                                marker_notUs.addListener('click', function() {
-                                    infoWindow_notUs.open(map_notUs, marker_notUs);
-
-                                });
-                                bounds_notUs.extend(latlng_notUs);
+                            });
+                            if (!isInBlacklist) {
+                                generateMarker(response[i], map_notUs, withoutBlackListedCount, bounds_notUs);
                             }
 
 
