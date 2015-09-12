@@ -145,14 +145,16 @@ google.maps.event.addDomListener(window, 'load', function () {
             zoom: 2
         });
 
-        var allLocations;
+        var allLocationsCount = 0;
+        var locationsLastWeekCount = 0;
+        var withoutBlackListedCount = 0;
 
         $.ajax({
             url: 'https://locator-app.com/api/v1/locations/latest?page=0&elements=1200',
             method: 'GET',
             success:function(response){
 
-                allLocations = response;
+                allLocationsCount = response.length;
 
                 for (var i = 0; i < response.length; i++) {
                     (function(){
@@ -174,6 +176,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                             bounds.extend(latlng);
 
                             if(new Date(response[i].create_date) - (Date.now() - 604800000) > 0) {
+                                locationsLastWeekCount++;
                                 var latlng6 = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
                                 var marker6 = new google.maps.Marker({
                                     position: latlng6,
@@ -197,7 +200,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                                 }
                             })
                             if(!isInBlacklist) {
-
+                                withoutBlackListedCount++;
                                 var latlng_notUs = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
                                 var marker_notUs = new google.maps.Marker({
                                     position: latlng_notUs,
@@ -221,6 +224,10 @@ google.maps.event.addDomListener(window, 'load', function () {
                     map.fitBounds(bounds);
                     map6.fitBounds(bounds6);
                     map_notUs.fitBounds(bounds_notUs);
+
+                    $('#location-count-all').html(allLocationsCount);
+                    $('#location-count-7days').html(locationsLastWeekCount);
+                    $('#location-count-notUs').html(locationsLastWeekCount);
                 }
 
             }
