@@ -1,3 +1,82 @@
+var userFilter = [{
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477e192a"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "627dc18163380b1f1b3e44267e0da225"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477e737f"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "89e09a2739e6ca2d544e779fbdf98b40"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477d5cf7"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477eda97"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "970a46123bc92b62bf26c31dff24367c"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "11a2ae383bf25eefde31b138605e797f"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477d8d80"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477db625"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "89e09a2739e6ca2d544e779fbd1be5b8"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "89e09a2739e6ca2d544e779fbd33396d"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477df260"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477e3eb2"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "ec26fc9e9342d7df21a87ab2477eb3cd"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "89e09a2739e6ca2d544e779fbd1cd410"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "89e09a2739e6ca2d544e779fbd1fe30e"
+}, {
+    "operator": "ne",
+    "property_name": "visitor.user_id",
+    "property_value": "locator-app"
+}, {
+    "operator": "ne",
+    "property_name": "parsed_user_agent.browser.family",
+    "property_value": "PhantomJS"
+}];
+
+
 google.maps.event.addDomListener(window, 'load', function () {
 
     var client = new Keen({
@@ -8,10 +87,22 @@ google.maps.event.addDomListener(window, 'load', function () {
     Keen.ready(function () {
 
         queryAndDrawCharts();
+        var btns = $('#controls button');
+        $('#controls button').on('click', function (ev) {
+            queryAndDrawCharts({
+                timeframe: 'this_' + ev.currentTarget.id
+            });
+            btns.removeClass('btn-primary').addClass('btn-default');
+            $(ev.currentTarget).addClass('btn-primary');
+        });
+
 
     });
 
     function queryAndDrawCharts(_opt) {
+        if (!_opt) {
+            _opt = {};
+        }
 
         var options = {
             timeframe: _opt.timeframe || 'this_7_days'
@@ -19,83 +110,6 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         var tomorrow = new Date(Date.now() + 86400000);
 
-        var userFilter = [{
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477e192a"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "627dc18163380b1f1b3e44267e0da225"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477e737f"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "89e09a2739e6ca2d544e779fbdf98b40"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477d5cf7"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477eda97"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "970a46123bc92b62bf26c31dff24367c"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "11a2ae383bf25eefde31b138605e797f"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477d8d80"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477db625"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "89e09a2739e6ca2d544e779fbd1be5b8"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "89e09a2739e6ca2d544e779fbd33396d"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477df260"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477e3eb2"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "ec26fc9e9342d7df21a87ab2477eb3cd"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "89e09a2739e6ca2d544e779fbd1cd410"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "89e09a2739e6ca2d544e779fbd1fe30e"
-        }, {
-            "operator": "ne",
-            "property_name": "visitor.user_id",
-            "property_value": "locator-app"
-        }, {
-            "operator": "ne",
-            "property_name": "parsed_user_agent.browser.family",
-            "property_value": "PhantomJS"
-        }];
 
         var areaChartConfig = {
             chartType: "areachart",
@@ -291,7 +305,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             zoom: 2
         });
 
-        var infoWindow =  new google.maps.InfoWindow({
+        var infoWindow = new google.maps.InfoWindow({
             content: ''
         });
 
