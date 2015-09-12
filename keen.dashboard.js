@@ -152,9 +152,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         var allLocationsCount = 0;
         var locationsLastWeekCount = 0;
-
         var withoutBlackListedCount = 0;
-        var clickedIndex = {};
 
         function generateMarker(location, _map, _bounds) {
             location.__infowindowContent = '<div class="info-window"><a target="_blank" href="/location/' + location._id + '"><h3>' + location.title + '</h3></a><p>' + location.description + '</p></div>';
@@ -211,6 +209,13 @@ google.maps.event.addDomListener(window, 'load', function () {
                     $('#location-count-all').html(allLocationsCount);
                     $('#location-count-7days').html(locationsLastWeekCount);
                     $('#location-count-notUs').html(withoutBlackListedCount);
+
+                    client.draw({result: withoutBlackListedCount}, document.getElementById("count-metric-4"), {
+                        chartType: "metric",
+                        title: "Total Locations (team-filtered)",
+                        colors: ["#49c5b1"]
+                    });
+
                 }
 
             }
