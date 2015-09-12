@@ -111,12 +111,20 @@ google.maps.event.addDomListener(window, 'load', function () {
             zoom: 2
         });
 
+        var bounds_notUs = new google.maps.LatLngBounds ();
+        var map_notUs = new google.maps.Map(document.getElementById('map-canvas-notUs'), {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 2
+        });
 
+        var allLocations;
 
         $.ajax({
-            url: 'https://locator-app.com/api/v1/locations/latest?page=0&elements=200',
+            url: 'https://locator-app.com/api/v1/locations/latest?page=0&elements=1200',
             method: 'GET',
             success:function(response){
+
+                allLocations = response;
 
                 for (var i = 0; i < response.length; i++) {
                     (function(){
@@ -154,10 +162,37 @@ google.maps.event.addDomListener(window, 'load', function () {
                                 });
                                 bounds6.extend(latlng6);
                             }
+                            var isInBlacklist = false;
+                            userFilter.forEach(function(filterElem) {
+                                if(filterElem.property_name === 'visitor.user_id' &&  filterElem.property_value !== response[i].userid) {
+                                    isInBlacklist = true;
+                                }
+                            })
+                            if(!isInBlacklist) {
+
+                                var latlng_notUs = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
+                                var marker_notUs = new google.maps.Marker({
+                                    position: latlng6,
+                                    map: map_notUs,
+                                    animation: google.maps.Animation.DROP,
+                                    title: response[i].title
+                                });
+                                var infoWindow_notUs =  new google.maps.InfoWindow({
+                                    content: '<div class="info-window"><a target="_blank" href="/location/' + response[i]._id + '"><h3>' + response[i].title + '</h3></a><p>' + response[i].description + '</p></div>'
+                                });
+                                marker_notUs.addListener('click', function() {
+                                    infoWindow_notUs.open(map_notUs, marker_notUs);
+
+                                });
+                                bounds_notUs.extend(latlng_notUs);
+                            }
+
+
                         }
                     })();
                     map.fitBounds(bounds);
                     map6.fitBounds(bounds6);
+                    map_notUs.fitBounds(bounds_notUs);
                 }
 
             }
