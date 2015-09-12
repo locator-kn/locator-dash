@@ -172,7 +172,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
                                 var latlng_notUs = new google.maps.LatLng(response[i].geotag.lat, response[i].geotag.long);
                                 var marker_notUs = new google.maps.Marker({
-                                    position: latlng6,
+                                    position: latlng_notUs,
                                     map: map_notUs,
                                     animation: google.maps.Animation.DROP,
                                     title: response[i].title
