@@ -151,8 +151,8 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         var currently_open_marker = {};
 
-        function generateMarker(location, _map, _counterVar, _bounds) {
-            _counterVar++;
+        function generateMarker(location, _map, _bounds) {
+
             var _latlng = new google.maps.LatLng(location.geotag.lat, location.geotag.long);
             var _marker = new google.maps.Marker({
                 position: _latlng,
@@ -180,10 +180,12 @@ google.maps.event.addDomListener(window, 'load', function () {
                 for (var i = 0; i < response.length; i++) {
                     (function () {
                         if (response[i] !== undefined && response[i] !== null) {
-                            generateMarker(response[i], map, allLocationsCount, bounds);
+                            generateMarker(response[i], map, bounds);
+                            allLocationsCount++;
 
                             if (new Date(response[i].create_date) - (Date.now() - 604800000) > 0) {
-                                generateMarker(response[i], map6, locationsLastWeekCount, bounds6);
+                                generateMarker(response[i], map6, bounds6);
+                                locationsLastWeekCount++;
 
                             }
                             var isInBlacklist = false;
@@ -193,7 +195,8 @@ google.maps.event.addDomListener(window, 'load', function () {
                                 }
                             });
                             if (!isInBlacklist) {
-                                generateMarker(response[i], map_notUs, withoutBlackListedCount, bounds_notUs);
+                                generateMarker(response[i], map_notUs, bounds_notUs);
+                                withoutBlackListedCount++;
                             }
 
 
