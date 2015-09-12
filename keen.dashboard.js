@@ -158,7 +158,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 position: _latlng,
                 map: _map,
                 animation: google.maps.Animation.DROP,
-                title: response[i].title
+                title: location.title
             });
             var _infoWindow = new google.maps.InfoWindow({
                 content: '<div class="info-window"><a target="_blank" href="/location/' + location._id + '"><h3>' + location.title + '</h3></a><p>' + location.description + '</p></div>'
@@ -168,7 +168,8 @@ google.maps.event.addDomListener(window, 'load', function () {
                 currently_open_marker = _marker;
                 _infoWindow.open(_map, _marker);
             });
-            _bounds.extend(latlng);
+            _bounds.extend(_latlng);
+
         }
 
         $.ajax({
