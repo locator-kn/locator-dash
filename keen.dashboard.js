@@ -56,6 +56,10 @@ google.maps.event.addDomListener(window, 'load', function () {
         }, {
             "operator": "ne",
             "property_name": "visitor.user_id",
+            "property_value": "89e09a2739e6ca2d544e779fbd1fe30e"
+        }, {
+            "operator": "ne",
+            "property_name": "visitor.user_id",
             "property_value": "locator-app"
         }, {
             "operator": "ne",
