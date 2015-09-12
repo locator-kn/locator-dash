@@ -55,7 +55,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             "property_value": "locator-app"
         }, {
             "operator": "ne",
-            "property_name": "parsed_user_agent.browser",
+            "property_name": "parsed_user_agent.browser.family",
             "property_value": "PhantomJS"
         }];
 
