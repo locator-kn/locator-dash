@@ -227,7 +227,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
                     $('#location-count-all').html(allLocationsCount);
                     $('#location-count-7days').html(locationsLastWeekCount);
-                    $('#location-count-notUs').html(locationsLastWeekCount);
+                    $('#location-count-notUs').html(withoutBlackListedCount);
                 }
 
             }
