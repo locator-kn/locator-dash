@@ -4,6 +4,17 @@
     <title>Dashboard Starter UI, by Keen IO</title>
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/keen-dashboards.css"/>
+    <style>
+        #map-canvas {
+            margin: 0px;
+            min-height: 500px;
+            padding: 0px;
+            width: 100%;
+        }
+        #map-canvas .info-window {
+            max-width: 200px;
+        }
+    </style>
 </head>
 <body class="application">
 
@@ -191,6 +202,25 @@
 
     </div>
 
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    Standorte der neusten 200 Locations
+                </div>
+                <div class="chart-stage">
+                    <div id="map-canvas"></div>
+                </div>
+                <div class="chart-notes">
+                    This is a sample text region to describe this chart.
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
 
     <div class="row">
 
@@ -243,7 +273,7 @@
 <script>
     Holder.add_theme("white", {background: "#fff", foreground: "#a7a7a7", size: 10});
 </script>
-
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script type="text/javascript" src="bower_components/keen-js/dist/keen.min.js"></script>
 <!--<script type="text/javascript" src="assets/js/meta.js"></script>-->
 <script type="text/javascript" src="out/keen.dashboard.js"></script>
