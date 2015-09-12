@@ -164,7 +164,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                             }
                             var isInBlacklist = false;
                             userFilter.forEach(function(filterElem) {
-                                if(filterElem.property_name === 'visitor.user_id' &&  filterElem.property_value !== response[i].userid) {
+                                if(filterElem.property_name === 'visitor.user_id' &&  filterElem.property_value === response[i].userid) {
                                     isInBlacklist = true;
                                 }
                             })
