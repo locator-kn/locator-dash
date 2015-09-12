@@ -7,6 +7,16 @@ google.maps.event.addDomListener(window, 'load', function () {
 
     Keen.ready(function () {
 
+        queryAndDrawCharts();
+
+    });
+
+    function queryAndDrawCharts(_opt) {
+
+        var options = {
+            timeframe: _opt.timeframe || 'this_7_days'
+        };
+
         var tomorrow = new Date(Date.now() + 86400000);
 
         var userFilter = [{
@@ -127,6 +137,142 @@ google.maps.event.addDomListener(window, 'load', function () {
             return tmp;
         }
 
+
+        var visitorsmetric1 = new Keen.Query("count", {
+            eventCollection: "visit",
+            timeframe: options.timeframe,
+            filters: getFilter()
+        });
+        client.draw(visitorsmetric1, document.getElementById("count-metric-1"), {
+            chartType: "metric",
+            title: "Total Visits",
+            colors: ["#49c5b1"]
+        });
+
+
+        var visitorsmetric2 = new Keen.Query("count", {
+            eventCollection: "schoen_hier",
+            filters: getFilter({"operator": "eq", "property_name": "action", "property_value": "add"}),
+            timeframe: options.timeframe
+        });
+        client.draw(visitorsmetric2, document.getElementById("count-metric-2"), {
+            chartType: "metric",
+            title: "Schoenhiers +",
+            colors: ["#49c5b1"]
+        });
+        var visitorsmetric3 = new Keen.Query("count", {
+            eventCollection: "schoen_hier",
+            filters: getFilter({"operator": "eq", "property_name": "action", "property_value": "remove"}),
+            timeframe: options.timeframe
+        });
+        client.draw(visitorsmetric3, document.getElementById("count-metric-3"), {
+            chartType: "metric",
+            title: "Schoenhiers -",
+            colors: ["#49c5b1"]
+        });
+
+
+        // ----------------------------------------
+        // page_view Area Chart
+        // ----------------------------------------
+        var visitors = new Keen.Query("count", {
+            eventCollection: "visit",
+            interval: "daily",
+            filters: getFilter(),
+            groupBy: "visitor.authenticated",
+            timeframe: options.timeframe
+        });
+        client.draw(visitors, document.getElementById("chart-visitors"), areaChartConfig);
+
+        // ----------------------------------------
+        // visitor pie chart
+        // ----------------------------------------
+        var visitors_pie = new Keen.Query("count", {
+            eventCollection: "visit",
+            groupBy: "visitor.authenticated",
+            filters: getFilter(),
+            timeframe: options.timeframe,
+            timezone: "UTC"
+        });
+        client.draw(visitors_pie, document.getElementById("chart-visitors-pie"), pieChartConfig);
+
+        // ----------------------------------------
+        // page_view Area Chart
+        // ----------------------------------------
+        var page_view_timeline = new Keen.Query("count", {
+            eventCollection: "page_view",
+            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
+            groupBy: "page_type",
+            interval: 'daily',
+            timeframe: options.timeframe
+        });
+        client.draw(page_view_timeline, document.getElementById("chart-01"), areaChartConfig);
+
+
+        // ----------------------------------------
+        // page_view Pie Chart
+        // ----------------------------------------
+        var page_view_static = new Keen.Query("count", {
+            eventCollection: "page_view",
+            filters: getFilter(),
+            groupBy: "page_type",
+            timeframe: options.timeframe
+        });
+        client.draw(page_view_static, document.getElementById("chart-02"), pieChartConfig);
+
+        // ----------------------------------------
+        // page_view Area Chart
+        // ----------------------------------------
+        var page_view_timeline = new Keen.Query("count", {
+            eventCollection: "visit",
+            interval: "daily",
+
+            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
+            groupBy: "ip_geo_info.city",
+            timeframe: options.timeframe
+        });
+        client.draw(page_view_timeline, document.getElementById("chart-visit-city"), areaChartConfig);
+
+
+        // ----------------------------------------
+        // page_view Pie Chart
+        // ----------------------------------------
+        var page_view_static = new Keen.Query("count", {
+            eventCollection: "visit",
+            filters: getFilter(),
+            groupBy: "ip_geo_info.city",
+            timeframe: options.timeframe
+        });
+        client.draw(page_view_static, document.getElementById("chart-visit-city-pie"), pieChartConfig);
+
+
+        // ----------------------------------------
+        // page_view Area Chart
+        // ----------------------------------------
+        var page_view_timeline = new Keen.Query("count", {
+            eventCollection: "schoen_hier",
+            interval: "daily",
+
+            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
+            groupBy: "action",
+            timeframe: options.timeframe
+        });
+        client.draw(page_view_timeline, document.getElementById("chart-schoenhier"), areaChartConfig);
+
+
+        // ----------------------------------------
+        // page_view Pie Chart
+        // ----------------------------------------
+        var page_view_static = new Keen.Query("count", {
+            eventCollection: "schoen_hier",
+            groupBy: "action",
+            filters: getFilter(),
+            timeframe: options.timeframe
+        });
+        client.draw(page_view_static, document.getElementById("chart-schoenhier-pie"), pieChartConfig);
+    }
+
+    function buildMaps() {
         var bounds = new google.maps.LatLngBounds();
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
             center: new google.maps.LatLng(0, 0),
@@ -213,141 +359,9 @@ google.maps.event.addDomListener(window, 'load', function () {
 
             }
         });
+    }
 
 
-        var visitorsmetric1 = new Keen.Query("count", {
-            eventCollection: "visit",
-            timeframe: "this_7_days",
-            filters: getFilter()
-        });
-        client.draw(visitorsmetric1, document.getElementById("count-metric-1"), {
-            chartType: "metric",
-            title: "Total Visits",
-            colors: ["#49c5b1"]
-        });
-
-
-        var visitorsmetric2 = new Keen.Query("count", {
-            eventCollection: "schoen_hier",
-            filters: getFilter({"operator": "eq", "property_name": "action", "property_value": "add"}),
-            timeframe: "this_7_days"
-        });
-        client.draw(visitorsmetric2, document.getElementById("count-metric-2"), {
-            chartType: "metric",
-            title: "Schoenhiers +",
-            colors: ["#49c5b1"]
-        });
-        var visitorsmetric3 = new Keen.Query("count", {
-            eventCollection: "schoen_hier",
-            filters: getFilter({"operator": "eq", "property_name": "action", "property_value": "remove"}),
-            timeframe: "this_7_days"
-        });
-        client.draw(visitorsmetric3, document.getElementById("count-metric-3"), {
-            chartType: "metric",
-            title: "Schoenhiers -",
-            colors: ["#49c5b1"]
-        });
-
-
-        // ----------------------------------------
-        // page_view Area Chart
-        // ----------------------------------------
-        var visitors = new Keen.Query("count", {
-            eventCollection: "visit",
-            interval: "daily",
-            filters: getFilter(),
-            groupBy: "visitor.authenticated",
-            timeframe: "this_14_days"
-        });
-        client.draw(visitors, document.getElementById("chart-visitors"), areaChartConfig);
-
-        // ----------------------------------------
-        // visitor pie chart
-        // ----------------------------------------
-        var visitors_pie = new Keen.Query("count", {
-            eventCollection: "visit",
-            groupBy: "visitor.authenticated",
-            filters: getFilter(),
-            timeframe: "this_14_days",
-            timezone: "UTC"
-        });
-        client.draw(visitors_pie, document.getElementById("chart-visitors-pie"), pieChartConfig);
-
-        // ----------------------------------------
-        // page_view Area Chart
-        // ----------------------------------------
-        var page_view_timeline = new Keen.Query("count", {
-            eventCollection: "page_view",
-            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
-            groupBy: "page_type",
-            interval: 'daily',
-            timeframe: "this_14_days"
-        });
-        client.draw(page_view_timeline, document.getElementById("chart-01"), areaChartConfig);
-
-
-        // ----------------------------------------
-        // page_view Pie Chart
-        // ----------------------------------------
-        var page_view_static = new Keen.Query("count", {
-            eventCollection: "page_view",
-            filters: getFilter(),
-            groupBy: "page_type",
-            timeframe: "this_14_days"
-        });
-        client.draw(page_view_static, document.getElementById("chart-02"), pieChartConfig);
-
-        // ----------------------------------------
-        // page_view Area Chart
-        // ----------------------------------------
-        var page_view_timeline = new Keen.Query("count", {
-            eventCollection: "visit",
-            interval: "daily",
-
-            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
-            groupBy: "ip_geo_info.city",
-            timeframe: "this_14_days"
-        });
-        client.draw(page_view_timeline, document.getElementById("chart-visit-city"), areaChartConfig);
-
-
-        // ----------------------------------------
-        // page_view Pie Chart
-        // ----------------------------------------
-        var page_view_static = new Keen.Query("count", {
-            eventCollection: "visit",
-            filters: getFilter(),
-            groupBy: "ip_geo_info.city",
-            timeframe: "this_14_days"
-        });
-        client.draw(page_view_static, document.getElementById("chart-visit-city-pie"), pieChartConfig);
-
-
-        // ----------------------------------------
-        // page_view Area Chart
-        // ----------------------------------------
-        var page_view_timeline = new Keen.Query("count", {
-            eventCollection: "schoen_hier",
-            interval: "daily",
-
-            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
-            groupBy: "action",
-            timeframe: "this_14_days"
-        });
-        client.draw(page_view_timeline, document.getElementById("chart-schoenhier"), areaChartConfig);
-
-
-        // ----------------------------------------
-        // page_view Pie Chart
-        // ----------------------------------------
-        var page_view_static = new Keen.Query("count", {
-            eventCollection: "schoen_hier",
-            groupBy: "action",
-            filters: getFilter(),
-            timeframe: "this_14_days"
-        });
-        client.draw(page_view_static, document.getElementById("chart-schoenhier-pie"), pieChartConfig);
-
-    });
+    buildMaps();
 
 });
