@@ -164,7 +164,10 @@ google.maps.event.addDomListener(window, 'load', function () {
                 content: '<div class="info-window"><a target="_blank" href="/location/' + location._id + '"><h3>' + location.title + '</h3></a><p>' + location.description + '</p></div>'
             });
             _marker.addListener('click', function () {
-                currently_open_marker.close();
+                if(currently_open_marker.hasOwnProperty('visible')) {
+
+                    currently_open_marker.close();
+                }
                 currently_open_marker = _marker;
                 _infoWindow.open(_map, _marker);
             });
