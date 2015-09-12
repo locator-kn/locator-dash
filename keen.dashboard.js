@@ -48,6 +48,10 @@ google.maps.event.addDomListener(window, 'load', function () {
         }, {
             "operator": "ne",
             "property_name": "visitor.user_id",
+            "property_value": "ec26fc9e9342d7df21a87ab2477db625"
+        }, {
+            "operator": "ne",
+            "property_name": "visitor.user_id",
             "property_value": "ec26fc9e9342d7df21a87ab2477df260"
         }, {
             "operator": "ne",
