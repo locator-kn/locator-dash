@@ -382,7 +382,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
                     $('#count-metric-4 span.keen-metric-value').html(allLocationsCount);
                     $('#count-metric-5 span.keen-metric-value').html(withoutBlackListedCount);
-                    $('#count-metric-5 span.keen-metric-value').html(percentageUserLocations);
+                    $('#count-metric-6 span.keen-metric-value').html(percentageUserLocations);
                 }
 
             }
