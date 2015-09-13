@@ -186,7 +186,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         client.draw(visitorsmetric3, document.getElementById("count-metric-3"), {
             chartType: "metric",
             title: "Schoenhiers -",
-            colors: ["#49c5b1"]
+            colors: ["#fe6672"]
         });
 
 
