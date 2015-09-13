@@ -282,6 +282,17 @@ google.maps.event.addDomListener(window, 'load', function () {
         });
         client.draw(registrations_timeline, document.getElementById("chart-registrations"), areaChartConfig);
 
+        // ----------------------------------------
+        // registrations Area Chart
+        // ----------------------------------------
+        var registrations_timeline_dayafter = new Keen.Query("count", {
+            eventCollection: "registrations",
+            interval: "daily",
+            groupBy: "strategy",
+            timeframe: {"end": tomorrow, "start": "2015-07-18T00:00:00.000+00:00"}
+        });
+        client.draw(registrations_timeline_dayafter, document.getElementById("chart-registrations-dayAfter"), areaChartConfig);
+
 
         // ----------------------------------------
         // registrations Pie Chart
