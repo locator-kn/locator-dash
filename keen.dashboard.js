@@ -270,6 +270,32 @@ google.maps.event.addDomListener(window, 'load', function () {
         });
         client.draw(page_view_static, document.getElementById("chart-02"), pieChartConfig);
 
+
+        // ----------------------------------------
+        // registrations Area Chart
+        // ----------------------------------------
+        var registrations_timeline = new Keen.Query("count", {
+            eventCollection: "registrations",
+            interval: "daily",
+            groupBy: "strategy",
+            timeframe: {"end": tomorrow, "start": "2015-07-16T00:00:00.000+00:00"}
+        });
+        client.draw(registrations_timeline, document.getElementById("chart-registrations"), areaChartConfig);
+
+
+        // ----------------------------------------
+        // registrations Pie Chart
+        // ----------------------------------------
+        var registrations_static = new Keen.Query("count", {
+            eventCollection: "registrations",
+            groupBy: "strategy",
+            timeframe: {"end": tomorrow, "start": "2015-07-16T00:00:00.000+00:00"}
+        });
+        client.draw(registrations_static, document.getElementById("chart-registrations-pie"), pieChartConfig);
+
+
+
+
         // ----------------------------------------
         // page_view Area Chart
         // ----------------------------------------
