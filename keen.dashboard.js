@@ -237,6 +237,32 @@ google.maps.event.addDomListener(window, 'load', function () {
         // ----------------------------------------
         // page_view Area Chart
         // ----------------------------------------
+        var visitors = new Keen.Query("count_unique", {
+            eventCollection: "visit",
+            interval: "daily",
+            filters: getFilter(),
+            targetProperty: 'visitor.user_id',
+            timeframe: options.timeframe
+        });
+        client.draw(visitors, document.getElementById("chart-visitors"), areaChartConfig);
+
+        // ---------------------------------------
+
+        // visitor pie chart
+        // ----------------------------------------
+        var visitors_pie = new Keen.Query("count_unique", {
+            eventCollection: "visit",
+            targetProperty: "visitor.user_id",
+            filters: getFilter(),
+            timeframe: options.timeframe,
+            timezone: "UTC"
+        });
+        client.draw(visitors_pie, document.getElementById("chart-active-user-metric"), pieChartConfig);
+
+
+        // ----------------------------------------
+        // page_view Area Chart
+        // ----------------------------------------
         var visitors = new Keen.Query("count", {
             eventCollection: "visit",
             interval: "daily",
