@@ -374,7 +374,15 @@ google.maps.event.addDomListener(window, 'load', function () {
                     $('#location-count-7days').html(locationsLastWeekCount);
                     $('#location-count-notUs').html(withoutBlackListedCount);
 
-                    $('#location-ratio').html(withoutBlackListedCount / allLocationsCount * 100);
+                    var percentageTeamLocations = Math.round((allLocationsCount - withoutBlackListedCount) / allLocationsCount * 100);
+
+                    var percentageUserLocations = 100 - percentageTeamLocations;
+                    $('#location-ratio').html(percentageUserLocations);
+
+
+                    $('#count-metric-4 span.keen-metric-value').html(allLocationsCount);
+                    $('#count-metric-5 span.keen-metric-value').html(withoutBlackListedCount);
+                    $('#count-metric-5 span.keen-metric-value').html(percentageUserLocations);
                 }
 
             }
