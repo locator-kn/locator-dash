@@ -92,7 +92,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         queryAndDrawCharts();
         var btns = $('#controls button');
-        $('#controls button').on('click', function (ev) {
+        btns.on('click', function (ev) {
             queryAndDrawCharts({
                 timeframe: 'this_' + ev.currentTarget.id
             });
@@ -144,7 +144,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 },
                 pieHole: .4
             }
-        }
+        };
 
         function getFilter(newData) {
             if (!newData) {
