@@ -287,7 +287,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         // ----------------------------------------
         var registrations_timeline_dayafter = new Keen.Query("count", {
             eventCollection: "registrations",
-            interval: "daily",
+            interval: "hourly",
             groupBy: "strategy",
             timeframe: {"end": tomorrow, "start": "2015-07-19T00:00:00.000+00:00"}
         });
@@ -312,7 +312,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         // ----------------------------------------
         var page_view_timeline = new Keen.Query("count", {
             eventCollection: "visit",
-            interval: "daily",
+            interval: "hourly",
 
             filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
             groupBy: "ip_geo_info.city",
