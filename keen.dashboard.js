@@ -168,12 +168,12 @@ google.maps.event.addDomListener(window, 'load', function () {
         var registMetricFacebook = new Keen.Query("count", {
             eventCollection: "registrations",
 
+            filters: [{"operator":"eq","property_name":"strategy","property_value":"facebook"}],
             timeframe: {"end": tomorrow, "start": "2015-07-16T00:00:00.000+00:00"}
         });
         client.draw(registMetricFacebook, document.getElementById("count-metric-registrations-facebook"), {
             chartType: "metric",
             title: "Registrations",
-            filters: [{"operator":"eq","property_name":"strategy","property_value":"facebook"}],
             colors: ["#49c5b1"]
         });
         var registMetricGoogle = new Keen.Query("count", {
