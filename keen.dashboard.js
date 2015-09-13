@@ -74,6 +74,10 @@ var userFilter = [{
     "operator": "ne",
     "property_name": "parsed_user_agent.browser.family",
     "property_value": "PhantomJS"
+}, {
+    "operator": "ne",
+    "property_name": "parsed_user_agent.browser.family",
+    "property_value": "Googlebot"
 }];
 
 
