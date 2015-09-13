@@ -244,7 +244,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             targetProperty: 'visitor.user_id',
             timeframe: options.timeframe
         });
-        client.draw(visitors, document.getElementById("chart-visitors"), areaChartConfig);
+        client.draw(visitors, document.getElementById("chart-active-user"), areaChartConfig);
 
         // ---------------------------------------
 
