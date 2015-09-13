@@ -156,6 +156,38 @@ google.maps.event.addDomListener(window, 'load', function () {
         }
 
 
+        var registMetricAll = new Keen.Query("count", {
+            eventCollection: "registrations",
+            timeframe: {"end": tomorrow, "start": "2015-07-16T00:00:00.000+00:00"}
+        });
+        client.draw(registMetricAll, document.getElementById("count-metric-registrations"), {
+            chartType: "metric",
+            title: "Registrations",
+            colors: ["#49c5b1"]
+        });
+        var registMetricFacebook = new Keen.Query("count", {
+            eventCollection: "registrations",
+
+            timeframe: {"end": tomorrow, "start": "2015-07-16T00:00:00.000+00:00"}
+        });
+        client.draw(registMetricFacebook, document.getElementById("count-metric-registrations-facebook"), {
+            chartType: "metric",
+            title: "Registrations",
+            filter: getFilter({"operator":"eq","property_name":"strategy","property_value":"facebook"}),
+            colors: ["#49c5b1"]
+        });
+        var registMetricGoogle = new Keen.Query("count", {
+            eventCollection: "registrations",
+            filter: getFilter({"operator":"eq","property_name":"strategy","property_value":"google"}),
+            timeframe: {"end": tomorrow, "start": "2015-07-16T00:00:00.000+00:00"}
+        });
+        client.draw(registMetricGoogle, document.getElementById("count-metric-registrations-google"), {
+            chartType: "metric",
+            title: "Registrations",
+            colors: ["#49c5b1"]
+        });
+
+
         var visitorsmetric1 = new Keen.Query("count", {
             eventCollection: "visit",
             timeframe: options.timeframe,
