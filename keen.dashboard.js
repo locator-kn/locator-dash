@@ -191,7 +191,6 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         var registMetricAllOverTime = new Keen.Query("count", {
             eventCollection: "registrations",
-            filters: [{"operator":"eq","property_name":"strategy","property_value":"google"}],
             timeframe: options.timeframe
         });
         client.draw(registMetricAllOverTime, document.getElementById("count-metric-registrations-overtime"), {
