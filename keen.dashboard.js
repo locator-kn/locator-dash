@@ -363,19 +363,22 @@ google.maps.event.addDomListener(window, 'load', function () {
         var bounds = new google.maps.LatLngBounds();
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
             center: new google.maps.LatLng(0, 0),
-            zoom: 2
+            zoom: 2,
+            scrollwheel: false
         });
 
         var bounds6 = new google.maps.LatLngBounds();
         var map6 = new google.maps.Map(document.getElementById('map-canvas-6'), {
             center: new google.maps.LatLng(0, 0),
-            zoom: 2
+            zoom: 2,
+            scrollwheel: false
         });
 
         var bounds_notUs = new google.maps.LatLngBounds();
         var map_notUs = new google.maps.Map(document.getElementById('map-canvas-notUs'), {
             center: new google.maps.LatLng(0, 0),
-            zoom: 2
+            zoom: 2,
+            scrollwheel: false
         });
 
         var infoWindow = new google.maps.InfoWindow({
