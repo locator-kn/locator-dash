@@ -1,5 +1,5 @@
 <div class="chart-wrapper">
-    <div class="chart-title"><div class="btn-group-xs">Area sample
+    <div class="chart-title"><div class="btn-group-xs">{{chartTitle}}
         <input type="number" value="7" ng-model="days" ng-model-options="{debounce: 1000}"/>
         <div ng-if="showOptions"><span class="btn btn-default" ng-class="{'btn-primary': gb === option}" ng-click="updateGroupByOption(option)" ng-repeat="option in groupByOptions">{{option}}</span> </div>
     </div>

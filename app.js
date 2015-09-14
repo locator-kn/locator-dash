@@ -27,7 +27,8 @@ angular.module('locatordash', ['angular-keenio', 'ui.router'])
             scope: {
                 method: '@',
                 queryOptions: '=',
-                groupByOptions: '='
+                groupByOptions: '=',
+                chartTitle: '@'
             },
             controller: function ($scope, tbkKeen, $timeout) {
                 $scope.days = 7;
@@ -62,7 +63,7 @@ angular.module('locatordash', ['angular-keenio', 'ui.router'])
                     if (ol !== ne) {
                         $scope.showChart = false;
                         configuration.opts.timeframe = getTimeframeByDays($scope.days);
-                        $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
+                        performQuery();
                         $timeout(function () {
                             $scope.showChart = true;
                         }, 500);
@@ -81,12 +82,17 @@ angular.module('locatordash', ['angular-keenio', 'ui.router'])
                         $scope.showChart = false;
                         $scope.gb = option;
                         configuration.opts.groupBy = option;
-                        $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
+                        performQuery();
                         $timeout(function () {
                             $scope.showChart = true;
                         }, 500);
                     }
                 };
+
+                function performQuery() {
+                    $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
+
+                }
 
 
             },
