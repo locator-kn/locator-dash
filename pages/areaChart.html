@@ -1,0 +1,23 @@
+<div class="chart-wrapper">
+    <div class="chart-title"><div class="btn-group-xs">Schönhiers gruppiert nach Aktion
+        <input type="number" value="7" ng-model="days" ng-model-options="{debounce: 1000}"/>
+    </div>
+
+    </div>
+    <div class="chart-stage">
+        <div class="super-chart" ng-if="showChart">
+            <div tbk-keen-areachart query="query" chart-options="chartOptions"></div>
+        </div>
+    </div>
+    <div class="chart-notes">
+        Wobei add = hinzufügen, remove = entfernen und try = unauthenticated-add entspricht.
+    </div>
+</div>
+<!--
+
+<input type="text" ng-model="lc.timeframe"/>
+<div ng-if="lc.rerender">
+    <div tbk-keen-areachart query="query" chart-options="chartOptions">
+    </div>
+
+</div>-->

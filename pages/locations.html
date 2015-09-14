@@ -1,6 +1,10 @@
-<input type="text" ng-model="lc.timeframe"/>
-<div ng-if="lc.rerender">
-<div tbk-keen-areachart query="lc.query" chart-options="lc.chartOptions">
-</div>
+<!--<input type="text" ng-model="lc.timeframe"/>-->
+<!--<div ng-if="lc.rerender">-->
+<!--<div tbk-keen-areachart query="lc.query" chart-options="lc.chartOptions">-->
+<!--</div>-->
 
+<!--</div>-->
+
+<div>
+    <area-chart method="count" eventcollection="visit" group-by="ip_geo_info.city"></area-chart>
 </div>
