@@ -91,8 +91,8 @@ angular.module('locatordash', ['angular-keenio', 'ui.router'])
 
                 function performQuery() {
                     $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
-
                 }
+                performQuery();
 
 
             },
