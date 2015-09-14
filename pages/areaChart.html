@@ -1,6 +1,7 @@
 <div class="chart-wrapper">
-    <div class="chart-title"><div class="btn-group-xs">Schönhiers gruppiert nach Aktion
+    <div class="chart-title"><div class="btn-group-xs">Area sample
         <input type="number" value="7" ng-model="days" ng-model-options="{debounce: 1000}"/>
+        <div ng-if="showOptions"><span class="btn btn-default" ng-class="{'btn-primary': gb === option}" ng-click="updateGroupByOption(option)" ng-repeat="option in groupByOptions">{{option}}</span> </div>
     </div>
 
     </div>
@@ -13,11 +14,3 @@
         Wobei add = hinzufügen, remove = entfernen und try = unauthenticated-add entspricht.
     </div>
 </div>
-<!--
-
-<input type="text" ng-model="lc.timeframe"/>
-<div ng-if="lc.rerender">
-    <div tbk-keen-areachart query="query" chart-options="chartOptions">
-    </div>
-
-</div>-->

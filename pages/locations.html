@@ -6,5 +6,10 @@
 <!--</div>-->
 
 <div>
-    <area-chart method="count" eventcollection="visit" group-by="ip_geo_info.city"></area-chart>
+    <area-chart method="count" query-options="{
+        eventCollection: 'visit',
+        groupBy: 'visitor.user_name',
+        interval: 'daily',
+        timeframe: 'this_2_months'
+    }" group-by-options="['visitor.user_name', 'visitor.user_id']"></area-chart>
 </div>

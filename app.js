@@ -22,16 +22,23 @@ angular.module('locatordash', ['angular-keenio', 'ui.router'])
                 controllerAs: 'lc'
             })
     })
-    .directive('areaChart', function() {
+    .directive('areaChart', function () {
         return {
             scope: {
                 method: '@',
-                eventcollection: '@',
-                groupBy: '@'
+                queryOptions: '=',
+                groupByOptions: '='
             },
-            controller: function($scope, tbkKeen, $timeout) {
+            controller: function ($scope, tbkKeen, $timeout) {
                 $scope.days = 7;
                 $scope.showChart = true;
+
+
+                $scope.showOptions = $scope.groupByOptions.length > 1;
+
+                if ($scope.groupByOptions.length) {
+                    $scope.gb = $scope.groupByOptions[0];
+                }
 
                 $scope.chartOptions = {
                     chartArea: {
@@ -42,35 +49,45 @@ angular.module('locatordash', ['angular-keenio', 'ui.router'])
                     }
                 };
 
-                $scope.$watch('days', function(ol, ne) {
-                    if(ol !== ne) {
+
+                var configuration = {
+                    method: $scope.method,
+                    opts: $scope.queryOptions
+                };
+
+                configuration.opts.timeframe = getTimeframeByDays($scope.days);
+
+
+                $scope.$watch('days', function (ol, ne) {
+                    if (ol !== ne) {
                         $scope.showChart = false;
-                        $timeout(function() {
+                        configuration.opts.timeframe = getTimeframeByDays($scope.days);
+                        $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
+                        $timeout(function () {
                             $scope.showChart = true;
-                        }, 500)
+                        }, 500);
                     }
                 });
-
-
-
-                if(!$scope.eventcollection || !$scope.method) {
+                if (!$scope.queryOptions || !$scope.method) {
                     throw new Error('Wrong directive usage');
                 }
                 $scope.timeframe = 'this_7_days';
                 function getTimeframeByDays(num_days) {
-                    return 'this_' + num_days + '_days'
+                    return 'this_' + num_days + '_days';
                 }
 
-                var configuration = {
-                    method: $scope.method,
-                    opts: {
-                        eventCollection: $scope.eventcollection,
-                        timeframe: getTimeframeByDays($scope.days),
-                        groupBy: "ip_geo_info.city"
+                $scope.updateGroupByOption = function (option) {
+                    if ($scope.gb !== option) {
+                        $scope.showChart = false;
+                        $scope.gb = option;
+                        configuration.opts.groupBy = option;
+                        $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
+                        $timeout(function () {
+                            $scope.showChart = true;
+                        }, 500);
                     }
                 };
 
-                $scope.query = new tbkKeen.Query(configuration.method, configuration.opts);
 
             },
             templateUrl: 'pages/areaChart.html'
