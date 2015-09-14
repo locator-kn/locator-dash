@@ -1,16 +1,14 @@
 <div class="chart-wrapper">
-    <div class="chart-title"><div class="btn-group-xs">{{chartTitle}}
-        <input type="number" value="7" ng-model="days" ng-model-options="{debounce: 1000}"/>
-        <div ng-if="showOptions"><span class="btn btn-default" ng-class="{'btn-primary': gb === option}" ng-click="updateGroupByOption(option)" ng-repeat="option in groupByOptions">{{option}}</span> </div>
+    <div class="chart-title">{{chartTitle}}
+        <div ng-if="showOptions" class="btn-group-xs" style="float: right;"> <button type="button" class="btn btn-default" ng-class="{'btn-primary': gb === option}" ng-click="updateGroupByOption(option)" ng-repeat="option in groupByOptions">{{option}}</button> </div>
     </div>
 
-    </div>
     <div class="chart-stage">
         <div class="super-chart" ng-if="showChart">
             <div tbk-keen-areachart query="query" chart-options="chartOptions"></div>
         </div>
     </div>
     <div class="chart-notes">
-        Wobei add = hinzufügen, remove = entfernen und try = unauthenticated-add entspricht.
+        Die letzten <input type="number" value="7" ng-model="days" ng-model-options="{debounce: 1000}"/> Tage
     </div>
 </div>
