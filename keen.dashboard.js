@@ -257,7 +257,11 @@ google.maps.event.addDomListener(window, 'load', function () {
             timeframe: options.timeframe,
             timezone: "UTC"
         });
-        client.draw(visitors_pie, document.getElementById("chart-active-user-metric"), pieChartConfig);
+        client.draw({
+            chartType: "metric",
+            title: "Benutzer",
+            colors: ["#fe6672"]
+        }, document.getElementById("chart-active-user-metric"), pieChartConfig);
 
 
         // ----------------------------------------
