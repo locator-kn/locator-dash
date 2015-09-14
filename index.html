@@ -20,6 +20,8 @@
 </head>
 <body class="application" ng-app="locatordash">
 
+
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -41,16 +43,13 @@
             <a class="navbar-brand" href="../">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <a class="navbar-brand" href="./">Locator Dashboard</a>
+            <a class="navbar-brand" ui-sref="home">Locator Dashboard</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="https://keen.io">Home</a></li>
-                <li><a href="https://keen.io/team">Team</a></li>
-                <li><a href="https://github.com/keenlabs/dashboards/tree/gh-pages/examples/starter-kit">Source</a></li>
-                <li><a href="https://groups.google.com/forum/#!forum/keen-io-devs">Community</a></li>
-                <li><a href="http://stackoverflow.com/questions/tagged/keen-io?sort=newest&pageSize=15">Technical
-                    Support</a></li>
+                <li><a ui-sref="home">Home</a></li>
+                <li><a ui-sref="locations">Locations</a></li>
+
             </ul>
         </div>
     </div>
@@ -516,15 +515,18 @@
     Holder.add_theme("white", {background: "#fff", foreground: "#a7a7a7", size: 10});
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script type="text/javascript" src="bower_components/keen-js/dist/keen.min.js"></script>
+<script type="text/javascript" src="bower_components/keen-js/dist/keen.js"></script>
 <!--<script type="text/javascript" src="assets/js/meta.js"></script>-->
 <script type="text/javascript" src="out/keen.dashboard.js"></script>
 
-<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-keenio/dist/angular-keenio.js"></script>
+
 
 <script type="text/javascript" src="out/app.js"></script>
 <script type="text/javascript" src="controller/mainCtrl.js"></script>
+<script type="text/javascript" src="controller/locationsCtrl.js"></script>
 
 
 

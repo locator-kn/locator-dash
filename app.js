@@ -1,18 +1,24 @@
-angular.module('locatordash', ['ui.router'])
-    .factory('KeenS', function () {
-        return new Keen({
-            projectId: "<%= keen.PROJECT_ID %>",
-            readKey: "<%= keen.READ_KEY %>"
-        });
-    }).config(function($stateProvider, $urlRouterProvider) {
-        //
-        // For any unmatched url, redirect to /state1
+angular.module('locatordash', ['angular-keenio', 'ui.router'])
+
+    .config(function (tbkKeenConfigProvider) {
+        tbkKeenConfigProvider.projectId("<%= keen.PROJECT_ID %>");
+        tbkKeenConfigProvider.readKey("<%= keen.READ_KEY %>");
+
+    }).config(function ($stateProvider, $urlRouterProvider) {
+
         $urlRouterProvider.otherwise("/");
-        //
-        // Now set up the states
+
         $stateProvider
             .state('home', {
                 url: "/",
-                templateUrl: "pages/home.html"
+                templateUrl: "pages/home.html",
+                controller: 'MainCtrl',
+                controllerAs: 'mc'
             })
-    });
+            .state('locations', {
+                url: "/locations",
+                templateUrl: "pages/locations.html",
+                controller: 'LocationsCtrl',
+                controllerAs: 'lc'
+            })
+    })
