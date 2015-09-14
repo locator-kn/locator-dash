@@ -250,18 +250,18 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         // visitor pie chart
         // ----------------------------------------
-        var visitors_pie = new Keen.Query("count", {
+        var visitors_pie = new Keen.Query("count_unique", {
             eventCollection: "visit",
-            groupBy: "visitor.user_id",
+            targetProperty: "visitor.user_id",
             filters: getFilter(),
             timeframe: options.timeframe,
             timezone: "UTC"
         });
-        client.draw({
+        client.draw(visitors_pie, document.getElementById("chart-active-user-metric"), {
             chartType: "metric",
             title: "Benutzer",
             colors: ["#fe6672"]
-        }, document.getElementById("chart-active-user-metric"), pieChartConfig);
+        });
 
 
         // ----------------------------------------
