@@ -5,11 +5,31 @@
 
 <!--</div>-->
 
-<div>
-    <area-chart method="count" chart-title="Demo Chart" query-options="{
-        eventCollection: 'visit',
-        groupBy: 'visitor.user_name',
-        interval: 'daily',
-        timeframe: 'this_2_months'
-    }" group-by-options="['visitor.user_name', 'visitor.user_id ']"></area-chart>
+<div class="row">
+    <div class="col-sm-8">
+        <chart type="area" method="count" chart-title="Demo Chart" query-options="{
+            eventCollection: 'visit',
+            groupBy: 'visitor.user_name',
+            interval: 'daily',
+            timeframe: 'this_2_months'
+        }" group-by-options="['visitor.user_name', 'visitor.user_id ']"></chart>
+    </div>
+
+    <div class="col-sm-4">
+        <chart type="pie" method="count" chart-title="Demo Chart" query-options="{
+            eventCollection: 'visit',
+            groupBy: 'visitor.user_name',
+            timeframe: 'this_2_months'
+        }" group-by-options="['visitor.user_name', 'visitor.user_id ']"></chart>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <chart type="metric" method="count" chart-title="Demo Chart" query-options="{
+            eventCollection: 'visit',
+            timeframe: 'this_2_months'
+        }"></chart>
+    </div>
 </div>

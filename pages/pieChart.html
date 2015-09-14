@@ -5,9 +5,7 @@
 
     <div class="chart-stage">
         <div class="super-chart" ng-if="showChart">
-            <div ng-if="type === 'area'" tbk-keen-areachart query="query" chart-options="chartOptions"></div>
-            <div ng-if="type === 'pie'" tbk-keen-piechart query="query" chart-options="chartOptions"></div>
-            <div ng-if="type === 'metric'" tbk-keen-metric query="query" class="keen-widget keen-metric" chart-options="chartOptions"></div>
+            <div tbk-keen-areachart query="query" chart-options="chartOptions"></div>
         </div>
     </div>
     <div class="chart-notes">
