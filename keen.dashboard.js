@@ -155,6 +155,15 @@ google.maps.event.addDomListener(window, 'load', function () {
             return tmp;
         }
 
+        var registMetricZeitraum = new Keen.Query("count", {
+            eventCollection: "registrations",
+            timeframe: options.timeframe
+        });
+        client.draw(registMetricZeitraum, document.getElementById("count-metric-registrations-zeitraum"), {
+            chartType: "metric",
+            title: "Registrations",
+            colors: ["#49c5b1"]
+        });
 
         var registMetricAll = new Keen.Query("count", {
             eventCollection: "registrations",
