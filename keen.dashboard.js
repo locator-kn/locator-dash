@@ -250,9 +250,9 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         // visitor pie chart
         // ----------------------------------------
-        var visitors_pie = new Keen.Query("count_unique", {
+        var visitors_pie = new Keen.Query("count", {
             eventCollection: "visit",
-            targetProperty: "visitor.user_id",
+            groupBy: "visitor.user_id",
             filters: getFilter(),
             timeframe: options.timeframe,
             timezone: "UTC"
