@@ -365,7 +365,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             eventCollection: "visit",
             interval: "daily",
 
-            filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
+            filters: getFilter({"operator":"ne","property_name":"ip_geo_info.city","property_value":null}),
             groupBy: "ip_geo_info.city",
             timeframe: options.timeframe
         });
@@ -377,7 +377,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         // ----------------------------------------
         var page_view_static = new Keen.Query("count", {
             eventCollection: "visit",
-            filters: getFilter(),
+            filters: getFilter({"operator":"ne","property_name":"ip_geo_info.city","property_value":null}),
             groupBy: "ip_geo_info.city",
             timeframe: options.timeframe
         });
