@@ -363,7 +363,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         // ----------------------------------------
         var page_view_timeline = new Keen.Query("count", {
             eventCollection: "visit",
-            interval: "hourly",
+            interval: "daily",
 
             filters: getFilter({"operator": "ne", "property_name": "page_type", "property_value": null}),
             groupBy: "ip_geo_info.city",
